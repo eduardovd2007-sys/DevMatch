@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Documentación</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navegación -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../assets/img/Logo.png" alt="DevMatch Logo" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Plataforma</a></li>
+            <li><a href="metricas.html">Métricas</a></li>
+            <li><a href="documentacion.html" style="color: #f8fafc; border-bottom: 2px solid #ff3b30; padding-bottom: 5px;">Documentación</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#" class="btn-login">Inicia Sesión</a>
+            <a href="registro.html" class="btn-join">Únete ahora &rarr;</a>
+        </div>
+    </header>
+
+    <!-- Sección Principal de Documentación -->
+    <main class="docs-section">
+        
+        <!-- Columna Izquierda: Textos y Tarjetas -->
+        <div class="docs-content">
+            <span class="code-mono">// docs/aci-overview.md</span>
+            <h2 class="docs-title">Motor <span class="highlight">ACI</span></h2>
+            
+            <p>El Adaptive Compatibility Index (ACI) es nuestro motor principal de emparejamiento. Analiza vectores de habilidades técnicas (Java, HTML, CSS), disponibilidad de horarios y compatibilidad psicométrica en tiempo real, sin considerar evaluaciones académicas.</p>
+            
+            <p>Los datos temporales se almacenan de forma segura en <strong>Cloud Storage</strong>. Todos los repositorios y artefactos de los proyectos integradores tienen un <strong>límite absoluto de 8 semanas</strong> antes de su purgado automático para asegurar la entrega en tiempo y forma.</p>
+            
+            <p>Para acelerar la logística, ACI incluye integración nativa con la <strong>WhatsApp API</strong>. Solo se inician conversaciones directas entre líderes y estudiantes cuando el score de compatibilidad (Threshold) supera el <strong>0.85</strong>.</p>
+
+            <!-- Cuadrícula de estadísticas de docs -->
+            <div class="docs-stats-grid">
+                <div class="doc-stat-card">
+                    <span class="stat-label">PRECISIÓN DEL MODELO</span>
+                    <h4>94.3%</h4>
+                    <div class="progress-bar-container"><div class="progress-bar" style="width: 94.3%; background: #ff3b30;"></div></div>
+                </div>
+                <div class="doc-stat-card">
+                    <span class="stat-label">LATENCIA P99</span>
+                    <h4>&lt; 120ms</h4>
+                    <span class="stat-status positive">☁️ Optimizado</span>
+                </div>
+                <div class="doc-stat-card">
+                    <span class="stat-label">UMBRAL DE MATCH</span>
+                    <h4>≥ 0.85</h4>
+                    <span class="stat-status warning">🔒 Requerido para chat</span>
+                </div>
+                <div class="doc-stat-card">
+                    <span class="stat-label">ALMACENAMIENTO</span>
+                    <h4>Cloud Online</h4>
+                    <span class="stat-status info">🔄 Sincronizado</span>
+                </div>
+            </div>
+
+            <!-- Banner de WhatsApp -->
+            <div class="whatsapp-banner">
+                <div class="wa-icon">💬</div>
+                <div>
+                    <strong>Ver integración de comunicación</strong>
+                    <span>Equipos enlazados directamente, sin chats internos lentos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Editor de Código con Líneas -->
+        <div class="docs-visual">
+            <div class="large-code-window">
+                <div class="window-header">
+                    <div class="mac-dots">
+                        <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+                    </div>
+                    <span class="file-name">docs/architecture.md</span>
+                    <button class="btn-copy">📜‹ Copiar</button>
+                </div>
+                
+                <div class="code-editor-content">
+                    <div class="code-row"><span class="line-num">1</span><span class="code-text"><span class="keyword">#</span> DevMatch ACI Architecture</span></div>
+                    <div class="code-row"><span class="line-num">2</span><span class="code-text"></span></div>
+                    <div class="code-row"><span class="line-num">3</span><span class="code-text"><span class="keyword">##</span> Pipeline Steps</span></div>
+                    <div class="code-row"><span class="line-num">4</span><span class="code-text">- Ingesta de perfil (Java, HTML, CSS, Horarios)</span></div>
+                    <div class="code-row"><span class="line-num">5</span><span class="code-text">- <span class="string">Cloud Storage</span> allocation</span></div>
+                    
+                    <!-- Línea Resaltada con tus reglas reales -->
+                    <div class="code-row highlighted"><span class="line-num">6</span><span class="code-text">- Validación de límite de proyecto <span class="function">(Max 8 semanas)</span></span></div>
+                    
+                    <div class="code-row"><span class="line-num">7</span><span class="code-text">- Evaluación de perfil psicométrico</span></div>
+                    <div class="code-row"><span class="line-num">8</span><span class="code-text">- Matching engine (Entity-Relationship filtering)</span></div>
+                    <div class="code-row"><span class="line-num">9</span><span class="code-text"></span></div>
+                    <div class="code-row"><span class="line-num">10</span><span class="code-text"><span class="keyword">##</span> WhatsApp Integration</span></div>
+                    <div class="code-row"><span class="line-num">11</span><span class="code-text">El webhook de WA se dispara **solo si**:</span></div>
+                    <div class="code-row"><span class="line-num">12</span><span class="code-text"></span></div>
+                    <div class="code-row"><span class="line-num">13</span><span class="code-text"><span class="keyword">javascript</span></span></div>
+                    <div class="code-row"><span class="line-num">14</span><span class="code-text"><span class="keyword">if</span> (matchScore >= <span class="number">0.85</span>) {</span></div>
+                    <div class="code-row"><span class="line-num">15</span><span class="code-text">  WhatsAppAPI.initiateThread(student, projectLeader);</span></div>
+                    <div class="code-row"><span class="line-num">16</span><span class="code-text">}</span></div>
+                    <div class="code-row"><span class="line-num">17</span><span class="code-text"></span></div>
+                    <div class="code-row"><span class="line-num">18</span><span class="code-text"></span></div>
+                </div>
+                
+                <div class="window-footer">
+                    <span class="footer-dot"></span> Línea 6 seleccionada · haz clic para deseleccionar
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <h3>DevMatch</h3>
+            <p>&copy; 2026 DevMatch. Built for performance.</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#">Privacidad</a></li>
+            <li><a href="#">Términos</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">GitHub</a></li>
+        </ul>
+        <div class="footer-socials"><button class="icon-btn" title="Centro de Ayuda">❓</button></div>
+    </footer>
+
+</body>
+</html>
+

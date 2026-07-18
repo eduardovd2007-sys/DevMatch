@@ -1,0 +1,326 @@
+/* ==========================================================
+   lider-proyecto.css
+   Estilos ÚNICOS de la página "Líder Proyecto".
+   Se enlaza siempre DESPUÉS de base.css en el HTML.
+   ========================================================== */
+
+.leader-page { max-width: 1400px; }
+
+.leader-header p, .form-eyebrow {
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+}
+
+.new-project-button, .card-applicants {
+  background: var(--accent-red);
+  color: #fff;
+  border-color: var(--accent-red);
+  text-transform: none;
+}
+
+.new-project-button:hover, .card-applicants:hover {
+  background: #ff2d40;
+  box-shadow: 0 0 20px rgba(255, 77, 94, .34);
+  transform: translateY(-1px);
+}
+
+.leader-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* --------------------------------------------------------
+   CORRECCIÓN: antes .leader-card tenía el padding directo,
+   lo que dejaba sin espacio para el window-bar (los 3 puntos).
+   Ahora .leader-card solo da el marco (borde + esquinas), y
+   .leader-card-body es quien mete el padding al contenido real.
+   Esto es EXACTAMENTE el mismo patrón que .window/.window-bar
+   en base.css — por eso ahora se ve consistente con el resto.
+   -------------------------------------------------------- */
+.leader-card {
+  min-height: 305px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 9px;
+  overflow: hidden; /* para que las esquinas redondeadas corten el window-bar */
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  text-align: left;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-red);
+  box-shadow: 0 10px 28px rgba(255, 77, 94, .22);
+}
+
+.leader-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Las tarjetas "punteadas" (crear nueva / sin proyectos) NO llevan
+   window-bar, siguen siendo una sola caja centrada — por eso conservan
+   su propio padding directo, distinto a .leader-card. */
+.new-initiative-card, .empty-project-card {
+  min-height: 305px;
+  border-radius: 9px;
+  padding: 20px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  text-align: left;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-style: dashed;
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+}
+
+.new-initiative-card:hover, .empty-project-card:hover {
+  border-color: var(--accent-green);
+  background: var(--accent-green-bg);
+  box-shadow: 0 0 20px rgba(46, 230, 166, .12);
+}
+
+.new-initiative-card span, .empty-project-card span {
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  border-radius: 50%;
+  padding: 4px 9px;
+  font-size: 1.2rem;
+}
+
+.new-initiative-card strong, .empty-project-card strong { font-size: .9rem; }
+.empty-project-card b { font-size: .78rem; }
+.empty-project-card small { color: var(--accent-green); font: .62rem var(--font-mono); }
+
+.card-status {
+  color: var(--accent-green);
+  font: .64rem var(--font-mono);
+  letter-spacing: .04em;
+}
+.card-status span { float: right; color: var(--text-muted); }
+
+.leader-card h2 { font-size: 1.05rem; margin: 16px 0 8px; }
+.leader-card > .leader-card-body > p { min-height: 58px;flex: 1; color: var(--text-secondary); font-size: .78rem; line-height: 1.55; }
+
+.project-mini-data { display: flex; flex-wrap: wrap; gap: 6px; margin: 13px 0; }
+.project-mini-data span, .leader-tags span {
+  border: 1px solid rgba(46, 230, 166, .35);
+  border-radius: 3px;
+  color: var(--accent-green);
+  font: .62rem var(--font-mono);
+  padding: 4px 7px;
+}
+
+.leader-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.leader-tags span { color: var(--text-secondary); border-color: var(--border-subtle); }
+
+.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.card-secondary {
+  padding: 7px;
+  border: 1px solid rgba(46, 230, 166, .55);
+  border-radius: 4px;
+  color: var(--accent-green);
+  background: transparent;
+  font: .66rem var(--font-main);
+  cursor: pointer;
+}
+
+.card-applicants {
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 9px;
+  font: .68rem var(--font-main);
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+/* --- Modal "Registrar nueva iniciativa" --- */
+.leader-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 12, 23, .75);
+  opacity: 0;
+  visibility: hidden;
+  transition: .2s ease;
+}
+.leader-modal.is-visible { opacity: 1; visibility: visible; }
+
+.leader-form {
+  position: relative;
+  width: min(100%, 600px);
+  padding: 32px;
+  border: 1px solid rgba(46, 230, 166, .4);
+  border-radius: 12px;
+  background: var(--bg-panel);
+  transform: translateY(16px);
+  transition: transform .2s ease;
+}
+.leader-modal.is-visible .leader-form { transform: none; }
+.leader-form h2 { margin: 7px 0 22px; }
+.leader-form label { display: grid; gap: 6px; margin-bottom: 14px; color: var(--text-secondary); font-size: .78rem; }
+.leader-form input, .leader-form textarea {
+  width: 100%;
+  padding: 10px;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  background: var(--bg-panel-2);
+  font: .9rem var(--font-main);
+}
+.leader-form textarea { min-height: 95px; resize: vertical; }
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 900px) {
+  .leader-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.leader-grid .empty-project-card { grid-column: 1; }
+
+@media (max-width: 600px) {
+  .page-header { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .leader-grid { grid-template-columns: 1fr; }
+  .new-project-button { width: 100%; }
+  .leader-card, .new-initiative-card { min-height: auto; }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: .78rem;
+  margin-bottom: 6px;
+}
+
+.stack-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.stack-tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-panel-2);
+  color: var(--text-secondary);
+  font-size: .78rem;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+
+.stack-tag.selected {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: var(--accent-green-bg);
+}
+
+.stack-tag.selected::before {
+  content: "✓ ";
+}
+.result-card {
+  width: min(100%, 420px);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+  transform: translateY(16px);
+  transition: transform .2s ease;
+}
+.leader-modal.is-visible .result-card { transform: none; }
+
+.result-card--success { border-color: rgba(46, 230, 166, .4); }
+.result-card--error { border-color: rgba(255, 77, 94, .4); }
+
+.result-body { padding: 32px; text-align: center; }
+
+.result-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-green);
+  color: var(--accent-green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.result-icon--error { border-color: var(--accent-red); color: var(--accent-red); }
+
+.result-body h2 { font-size: 1.15rem; margin-bottom: 6px; }
+
+.result-subtitle {
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  margin-bottom: 18px;
+}
+
+.result-log {
+  text-align: left;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.result-log .log-ok { color: var(--accent-green); }
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.result-stat {
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 10px 6px;
+}
+.result-stat strong { display: block; color: var(--accent-green); font-size: 1rem; }
+.result-stat span { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; }
+.field-error {
+  display: block;
+  color: var(--accent-red);
+  font-size: .72rem;
+  margin: -8px 0 14px;
+}

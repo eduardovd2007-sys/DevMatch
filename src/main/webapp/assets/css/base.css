@@ -1,0 +1,421 @@
+/* ==========================================================
+   base.css
+   Contiene SOLO lo que se repite en TODAS las páginas de DevMatch:
+   variables de color, reset, navbar, botones y badges.
+   Cada página lo enlaza junto con su propio CSS específico.
+   ========================================================== */
+
+/* =========================================
+   1. TOKENS DE DISEÑO (variables reutilizables)
+   ========================================= */
+:root {
+  --bg-page: #00192B;
+  --bg-panel: #0f1c2b;
+  --bg-panel-2: #101f30;
+  --border-subtle: #1e2f42;
+
+  --accent-green: #2ee6a6;
+  --accent-green-bg: rgba(46, 230, 166, 0.12);
+  --accent-red: #ff4d5e;
+  --accent-red-bg: rgba(255, 77, 94, 0.12);
+  --accent-yellow: #f0c94a;
+  --accent-yellow-bg: rgba(240, 201, 74, 0.12);
+
+  --text-primary: #eaf2f7;
+  --text-secondary: #7d92a6;
+  --text-muted: #4c5c6e;
+
+  --font-main: 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --radius: 10px;
+  --gap: 16px;
+}
+.navbar { background: #0f1c2b; }
+
+/* =========================================
+   2. RESET BÁSICO
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  line-height: 1.5;
+}
+
+a {
+  color: #0b1420; 
+  text-decoration: none; 
+}
+
+
+/* =========================================
+   3. NAVBAR (igual en las 4 páginas)
+   ========================================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.navbar .logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.navbar .nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.navbar .nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.navbar .nav-links a.active {
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent-red);
+  padding-bottom: 6px;
+}
+
+.navbar .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* =========================================
+   4. CONTENEDOR DE PÁGINA (usado en todas las vistas)
+   ========================================= */
+.page {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 1.6rem;
+}
+
+.header-badges {
+  display: flex;
+  gap: 10px;
+}
+
+/* =========================================
+   5. PILL / BADGE genérico (se usa en varias páginas)
+   ========================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badge--green {
+  color: var(--accent-green);
+  background: var(--accent-green-bg);
+  border-color: var(--accent-green);
+}
+
+.badge--yellow {
+  color: var(--accent-yellow);
+  background: var(--accent-yellow-bg);
+  border-color: var(--accent-yellow);
+}
+
+.badge--red {
+  color: var(--accent-red);
+  background: var(--accent-red-bg);
+  border-color: var(--accent-red);
+}
+
+/* =========================================
+   6. PANEL ESTILO "VENTANA" (los 3 puntitos - se repite en varias vistas)
+   ========================================= */
+.window {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.window-bar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--bg-panel-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.window-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.window-meta {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* =========================================
+   7. BOTONES (usados en todas las vistas)
+   ========================================= */
+.btn {
+
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn--primary {
+  color: var(--text-primary);
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn--primary:hover {
+  background: #1ed9a3;
+  transform: scale(1.05);
+}
+
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.btn--outline:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* ==========================================================
+   Bell (notificaciones) + Avatar dropdown — se repiten en TODA
+   la app (navbar), por eso van en base.css y no en un CSS de vista.
+   ========================================================== */
+
+.nav-right { display: flex; align-items: center; gap: 14px; position: relative; }
+
+/* ---------- Campana / Notificaciones ---------- */
+.nav-bell-wrap { position: relative; }
+
+.nav-bell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-panel-2);
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.nav-bell:hover { border-color: var(--accent-green); }
+.nav-bell img { display: block; opacity: .9; }
+
+.bell-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent-red);
+  color: #fff;
+  font: 700 .62rem var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px var(--bg-panel);
+}
+.bell-badge[hidden] { display: none; }
+
+.notif-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 360px;
+  max-height: 420px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.notif-dropdown.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.notif-dropdown-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.notif-badge-pill {
+  background: var(--accent-red);
+  color: #fff;
+  font: 700 .62rem var(--font-mono);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.notif-list { overflow-y: auto; padding: 8px; display: grid; gap: 8px; }
+.notif-empty { padding: 24px 12px; text-align: center; color: var(--text-muted); font-size: .82rem; }
+
+.notif-item {
+  position: relative;
+  padding: 12px 14px 12px 16px;
+  border-radius: 8px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: border-color .15s ease;
+}
+.notif-item:hover { border-color: var(--accent-green); }
+.notif-item::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent-green);
+}
+.notif-item[data-type="nuevo_postulante"]::before { background: var(--accent-red); }
+.notif-item[data-type="match_confirmado"]::before { background: var(--accent-green); }
+.notif-item[data-type="aci_warning"]::before { background: var(--accent-yellow); }
+.notif-item.is-read { opacity: .55; }
+
+.notif-tag {
+  font: 700 .6rem var(--font-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.notif-item[data-type="nuevo_postulante"] .notif-tag { color: var(--accent-red); }
+.notif-item[data-type="match_confirmado"] .notif-tag { color: var(--accent-green); }
+.notif-item[data-type="aci_warning"] .notif-tag { color: var(--accent-yellow); }
+
+.notif-time { float: right; font: .64rem var(--font-mono); color: var(--text-muted); }
+.notif-title { display: block; margin: 4px 0 3px; font-size: .82rem; color: var(--text-primary); }
+.notif-title b { font-weight: 700; }
+.notif-meta { font: .66rem var(--font-mono); color: var(--text-muted); line-height: 1.5; }
+
+/* ---------- Avatar dropdown ---------- */
+.nav-avatar-wrap { position: relative; }
+
+.avatar {
+  cursor: pointer;
+  border: 0;
+}
+
+.avatar-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 220px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+  z-index: 40;
+  overflow: hidden;
+}
+.avatar-dropdown.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.avatar-dropdown-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.avatar-dropdown-head strong { font-size: .84rem; color: var(--text-primary); }
+
+.avatar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: .82rem var(--font-main);
+  text-align: left;
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+.avatar-dropdown-item:hover { background: var(--bg-panel-2); color: var(--text-primary); }
+.avatar-dropdown-item .ico { width: 16px; text-align: center; }
+.avatar-dropdown-item--danger { color: var(--accent-red); }
+.avatar-dropdown-item--danger:hover { background: rgba(255, 77, 94, .1); color: var(--accent-red); }
+
+@media (max-width: 600px) {
+  .notif-dropdown { width: 92vw; right: -8px; }
+}

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="devmatch-api-base" content="">
+  <title>DevMatch · Métricas del Proyecto</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/proyecto-detalle.css">
+  <link rel="stylesheet" href="../assets/css/metricas.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">DevMatch</div>
+    <ul class="nav-links">
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="postulaciones.html">Postulaciones</a></li>
+      <li><a href="lider-proyecto.html" class="active">Líder Proyecto</a></li>
+      <li><a href="perfil.html">Mi Perfil</a></li>
+    </ul>
+       <div class="nav-right">
+     <div class="nav-bell-wrap">
+       <button type="button" class="nav-bell" id="nav-bell-btn" aria-label="Notificaciones">
+         <img src="../assets/img/campana.png" alt="" width="20" height="20">
+         <span class="bell-badge" id="bell-badge" hidden>0</span>
+       </button>
+       <div class="notif-dropdown" id="notif-dropdown" aria-hidden="true">
+         <div class="notif-dropdown-head">
+           <span>Notificaciones</span>
+           <span class="notif-badge-pill" id="notif-count-pill">0 nuevas</span>
+         </div>
+         <div class="notif-list" id="notif-list"></div>
+       </div>
+     </div>
+     <div class="nav-avatar-wrap">
+       <button type="button" class="avatar" id="nav-avatar-btn">AL</button>
+       <div class="avatar-dropdown" id="avatar-dropdown" aria-hidden="true">
+         <div class="avatar-dropdown-head">
+           <div class="avatar">AL</div>
+           <strong id="avatar-dropdown-name">Alejandro López</strong>
+         </div>
+         <a href="perfil.html" class="avatar-dropdown-item"><span class="ico">☰</span>Mi Perfil</a>
+         <button type="button" class="avatar-dropdown-item avatar-dropdown-item--danger" id="logout-btn"><span class="ico">✖</span>Cerrar Sesión</button>
+       </div>
+     </div>
+   </div>
+  </nav>
+
+  <main class="page detail-page">
+    <p class="breadcrumb">
+      <a href="lider-proyecto.html">hub:/proyectos</a> /
+      <span id="breadcrumb-project">···</span> /
+      <span class="crumb-current">metricas</span>
+    </p>
+
+    <div class="page-header detail-header">
+      <div>
+        <h1>Métricas del Proyecto</h1>
+      </div>
+    </div>
+
+    <section class="metrics-grid" id="metrics-grid" aria-live="polite">
+      <!-- Panel: Balance técnico (radar) -->
+      <article class="window metric-panel">
+        <div class="panel-title"><span class="dot"></span>Balance técnico actual del equipo</div>
+        <div class="panel-body" id="panel-radar"><p class="metric-loading">Cargando métricas…</p></div>
+      </article>
+
+      <!-- Panel: Ventanas óptimas de sprint (matriz) -->
+      <article class="window metric-panel">
+        <div class="panel-title"><span class="dot"></span>Ventanas óptimas de sprint — matriz</div>
+        <div class="panel-body" id="panel-matrix"><p class="metric-loading">Cargando métricas…</p></div>
+      </article>
+
+      <!-- Panel: Distribución de horas por rol (donut) -->
+      <article class="window metric-panel">
+        <div class="panel-title"><span class="dot"></span>Distribución de horas por rol</div>
+        <div class="panel-body" id="panel-donut"><p class="metric-loading">Cargando métricas…</p></div>
+      </article>
+
+      <!-- Panel: Historial de sprints (línea) -->
+      <article class="window metric-panel">
+        <div class="panel-title"><span class="dot"></span>Historial de sprints</div>
+        <div class="panel-body" id="panel-line"><p class="metric-loading">Cargando métricas…</p></div>
+      </article>
+    </section>
+
+    <p class="session-bar">
+      <span>sys:devmatch_hub_v2.4 · auth:leader_mode · view:metricas_prj</span>
+      <span id="session-meta">workspace:/proyectos/···/metricas · session:AL</span>
+    </p>
+  </main>
+
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/metricas.js"></script>
+</body>
+</html>
+
+

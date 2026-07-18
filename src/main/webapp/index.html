@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Tu mejor equipo te está esperando</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="assets/img/Logo.png" alt="DevMatch Logo" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Plataforma</a></li>
+            <li><a href="views/metricas-plataforma.html">Métricas</a></li>
+            <li><a href="views/documentacion.html">Documentación</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="views/login.html" class="btn-login">Inicia Sesión</a>
+            <a href="views/registro.html" class="btn-join">Únete ahora &rarr;</a>
+        </div>
+    </header>
+
+    <main class="hero-dark">
+        
+        <div class="hero-text">
+            <div class="badge">
+                <span class="dot"></span> Plataforma exclusiva para estudiantes
+            </div>
+            
+            <h2>Tu mejor<br>equipo te<br><span class="highlight">está</span><br>esperando.</h2>
+            
+            <p>Matching inteligente basado en código y logística. Conectamos talento universitario con proyectos que importan basándonos en tu disponibilidad real y habilidades técnicas.</p>
+            
+            <div class="cta-buttons">
+                <a href="views/registro.html" class="btn-primary">▶ Comenzar</a>
+            </div>
+        </div> <div class="hero-visual">
+            
+            <div class="code-window">
+                <div class="window-header">
+                    <div class="mac-dots">
+                        <span class="dot-red"></span>
+                        <span class="dot-yellow"></span>
+                        <span class="dot-green"></span>
+                    </div>
+                    <span class="file-name">compatibility.engine.ts</span>
+                    <span class="status-running"><span class="dot-green-small"></span> running</span>
+                </div>
+                <div class="code-content">
+                    <pre><code><span class="code-line" style="animation-delay: 0.2s;"><span class="comment">// DevMatch · Algoritmo de Vinculación</span></span>
+<span class="code-line" style="animation-delay: 0.6s;"><span class="keyword">import</span> { match } <span class="keyword">from</span> <span class="string">"@devmatch/core"</span>;</span>
+
+<span class="code-line" style="animation-delay: 1.0s;"><span class="keyword">const</span> result = <span class="keyword">await</span> match({</span>
+<span class="code-line" style="animation-delay: 1.3s;">  student: { skills: [<span class="string">"Java"</span>, <span class="string">"HTML"</span>, <span class="string">"CSS"</span>], available_hours: <span class="number">32</span> },</span>
+<span class="code-line" style="animation-delay: 1.6s;">  project: { stack: [<span class="string">"Java"</span>, <span class="string">"UI/UX"</span>], deadline: <span class="string">"8-weeks"</span> },</span>
+<span class="code-line" style="animation-delay: 1.9s;">  storage: <span class="string">"cloud_only"</span></span>
+<span class="code-line" style="animation-delay: 2.2s;">});</span>
+
+<span class="code-line" style="animation-delay: 3.0s;"><span class="comment">// &rarr; result.score: 0.97 &check;</span></span>
+<span class="code-line" style="animation-delay: 3.4s;"><span class="comment">// &rarr; result.team_fit: HIGH &check;</span></span>
+<span class="code-line" style="animation-delay: 3.8s;"><span class="function">console</span>.log(<span class="string">`Match confirmed: <span class="variable">${result.name}</span>`</span>);</span></code></pre>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">☁️</div>
+                    <div class="stat-info">
+                        <h4>1,847 <span class="positive">+12%</span></h4>
+                        <p>Matches en la nube</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h4>4,203 <span class="positive">+340</span></h4>
+                        <p>Estudiantes activos</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+<section class="workflow-section">
+        <div class="workflow-header">
+            <h2>El Flujo de Trabajo</h2>
+            <p>Sistemático, logístico y preciso.</p>
+        </div>
+
+        <div class="workflow-grid">
+            <div class="workflow-card">
+                <div class="card-icon"><span>&lt;/&gt;</span></div>
+                <h3>1. Define tu stack técnico</h3>
+                <p>Elige las tecnologías que dominas y el sistema filtrará proyectos que requieran exactamente tu perfil.</p>
+                <div class="tech-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                </div>
+            </div>
+
+            <div class="workflow-card">
+                <div class="card-icon"><span>⏱️️</span></div>
+                <h3>2. Sincroniza tus horarios</h3>
+                <p>Analizamos tu disponibilidad de tiempo real para asegurar que el trabajo en equipo con tus compañeros fluya sin problemas.</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <span class="progress-text">DISPONIBILIDAD: 32 HORAS</span>
+            </div>
+
+            <div class="workflow-card">
+                <div class="card-icon"><span>🤝</span></div>
+                <h3>3. Obtén tu Match</h3>
+                <p>Recibe propuestas de proyectos curadas específicamente para tu perfil técnico y tus horas libres.</p>
+                <div class="match-result">
+                    <span class="check-icon">✔️</span>
+                    <div>
+                        <strong>Proyecto Integrador Alpha</strong>
+                        <span class="match-score">98% Match Score</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <h3>DevMatch</h3>
+            <p>&copy; 2026 DevMatch.</p>
+        </div>
+        
+        <ul class="footer-links">
+            <li><a href="#">GitHub</a></li>
+        </ul>
+        
+        <div class="footer-socials">
+            <button class="icon-btn" title="Centro de Ayuda">❓</button> 
+        </div>
+    </footer>
+</body>
+</html>

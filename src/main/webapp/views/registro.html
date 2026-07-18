@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Crea tu cuenta</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="auth-split-layout">
+        
+        <!-- Panel Izquierdo: Branding y Código (Figma Pixel Perfect) -->
+        <div class="auth-brand-panel">
+            
+            <div class="brand-header-custom">
+                <div class="logo-main">
+                    <span class="bolt-icon-logo">⚡</span>
+                    <span class="logo-text">DevMatch</span>
+                </div>
+                <div class="logo-subtitle">INTELLIGENT MATCHING PLATFORM</div>
+            </div>
+            
+            <h1 class="brand-title">Construye el<br>equipo que<br><span class="highlight-text">mereces.</span></h1>
+            <p class="brand-desc">El sistema evalúa compatibilidad técnica, logística y<br>disponibilidad antes de hacer Match con tu equipo ideal.</p>
+            
+            <div class="code-window auth-code-window-custom">
+                <div class="window-header">
+                    <div class="mac-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+                    <span class="file-name">student.profile.ts</span>
+                    <span></span>
+                </div>
+                <div class="code-content custom-syntax">
+                    <pre><code><span class="s-white">import</span> <span class="s-white">{</span> <span class="s-white">DevMatch</span> <span class="s-white">}</span> <span class="s-white">from</span> <span class="s-green">'@dm/core'</span><span class="s-white">;</span>
+
+<span class="s-blue">interface</span> <span class="s-cyan">StudentProfile</span> <span class="s-white">{</span>
+  <span class="s-yellow">id</span><span class="s-white">:</span> <span class="s-blue">string</span><span class="s-white">;</span> <span class="s-orange">// uuid</span>
+  <span class="s-yellow">name</span><span class="s-white">:</span> <span class="s-blue">string</span><span class="s-white">;</span>
+  <span class="s-yellow">skills</span><span class="s-white">:</span> <span class="s-blue">string</span><span class="s-white">[];</span>
+  <span class="s-yellow">available</span><span class="s-white">:</span> <span class="s-blue">number</span><span class="s-white">;</span> <span class="s-orange">// hrs/semana</span>
+<span class="s-white">}</span>
+
+<span class="s-orange">// Cloud Storage Online -&gt; active</span>
+<span class="s-orange">// profile.status = 'ready'</span></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-form-panel">
+            <div class="auth-card">
+                
+                <div class="auth-card-header">
+                    <span class="auth-init"><span class="bolt-icon">⚡</span> auth.register.init()</span>
+                    <button class="close-btn">&times;</button>
+                </div>
+                
+                <div class="auth-card-body">
+                    <h2>Crea tu cuenta</h2>
+                    <p>Ingresa tus datos para comenzar el proceso de matching.</p>
+                    
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label>NOMBRE COMPLETO</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="regName" class="form-control" placeholder="Tu nombre completo" autocomplete="off">
+                                <span class="status-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="regEmail" class="form-control" placeholder="usuario@devmatch.com" autocomplete="off">
+                                <span class="status-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>CONTRASEÑA</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="regPass" class="form-control" placeholder="••••••••">
+                                <span class="status-icon"></span>
+                            </div>
+                            <span id="passError" class="error-text" style="display: none;">La contraseña debe tener al menos 8 caracteres.</span>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-block">Crear Cuenta</button>
+                    </form>
+
+                    <div class="auth-steps">
+                        <a href="registro.html" class="step-badge active" style="text-decoration: none;">REGISTRO</a>
+                        <a href="logistica.html" class="step-badge" style="text-decoration: none;">LOGÍSTICA</a>
+                        <span class="step-badge">DISPONIBILIDAD</span>
+                    </div>
+
+                    <div class="auth-footer">
+                        <span class="footer-text">¿Ya tienes cuenta?</span>
+                        <a href="login.html" class="footer-link">Inicia sesión &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        function validateInput(inputId) {
+            const input = document.getElementById(inputId);
+            input.addEventListener('input', function() {
+                const wrapper = this.parentElement;
+                const icon = wrapper.querySelector('.status-icon');
+                
+                if (this.value.trim().length > 0) {
+                    wrapper.classList.add('valid');
+                    icon.innerText = '✅';
+                } else {
+                    wrapper.classList.remove('valid');
+                    icon.innerText = '';
+                }
+            });
+        }
+
+        validateInput('regName');
+        validateInput('regEmail');
+
+        document.getElementById('regPass').addEventListener('input', function() {
+            const wrapper = this.parentElement;
+            const icon = wrapper.querySelector('.status-icon');
+            const errorText = document.getElementById('passError');
+            
+            if (this.value.length === 0) {
+                wrapper.classList.remove('valid', 'invalid');
+                errorText.style.display = 'none';
+                icon.innerText = '';
+            } else if (this.value.length < 8) {
+                wrapper.classList.remove('valid');
+                wrapper.classList.add('invalid');
+                icon.innerText = '✖';
+                errorText.style.display = 'block';
+            } else {
+                wrapper.classList.remove('invalid');
+                wrapper.classList.add('valid');
+                icon.innerText = '✅';
+                errorText.style.display = 'none';
+            }
+        });
+
+       // Interceptar el clic de "Crear Cuenta" para guardar y redirigir
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 1. Efecto visual del botón (tu código original)
+            const btn = this.querySelector('button[type="submit"]');
+            btn.innerText = 'Creando perfil...';
+            btn.style.opacity = '0.7';
+
+            // 2. Capturamos los datos usando los IDs exactos de tu HTML
+            const nombre = document.getElementById('regName').value;
+            const correo = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPass').value;
+
+            // 3. Empaquetamos y guardamos en localStorage
+            const nuevoUsuario = { nombre: nombre, correo: correo, password: password };
+            localStorage.setItem('devmatch_user', JSON.stringify(nuevoUsuario));
+
+            // 4. Esperamos la animación y mandamos al usuario a Logística
+            setTimeout(() => {
+                window.location.href = 'logistica.html';
+            }, 800);
+        });
+    </script>
+</body>
+</html>
+

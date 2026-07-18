@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevMatch · Procesando Matching</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/proyectos.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="logo">DevMatch</div>
+    <ul class="nav-links">
+      <li><a href="proyectos.html" class="active">Proyectos</a></li>
+      <li><a href="postulaciones.html">Postulaciones</a></li>
+      <li><a href="#">Líder Proyecto</a></li>
+      <li><a href="#">Mi Perfil</a></li>
+    </ul>
+    <div class="nav-right">
+      <span><img src="../assets/img/campana.png" alt="Notificaciones" width="20" height="20"></span>
+      <div class="avatar">A</div>
+    </div>
+  </nav>
+
+  <main class="page" style="max-width: 1200px;">
+
+    <!-- Esta es una vista ESTÁTICA: simplemente muestra cómo se ve
+         la pantalla mientras el sistema procesa la postulación.
+         Todavía no está conectada a ninguna lógica real. -->
+    <section class="explorer">
+
+      <aside class="project-list">
+        <div class="project-list-header">6 proyectos Recomendados</div>
+        <button class="project-item active">
+          <div class="item-match green">
+            92% <span class="item-id">#PRJ-014</span>
+          </div>
+          <div class="item-stack">Java · Spring Boot · React</div>
+          <div class="progress-track">
+            <div class="progress-fill green" style="width: 92%;"></div>
+          </div>
+        </button>
+      </aside>
+
+      <div class="project-detail">
+        <h1 class="detail-title">Sistema de Gestión de Inventarios</h1>
+        <p class="detail-subtitle">#PRJ-014 · LogiTech Solutions</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">Duración</div>
+            <div class="stat-value">10 sem</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Vacantes</div>
+            <div class="stat-value">2 roles</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Sprint</div>
+            <div class="stat-value">Sprint 01</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Match</div>
+            <div class="stat-value green">92%</div>
+          </div>
+        </div>
+
+        <div class="matching-loader">
+          <div class="spinner"></div>
+          <div class="loader-text">Procesando Matching...</div>
+          <div class="loader-bar">
+            <div class="loader-bar-fill"></div>
+          </div>
+          <button><a href="../index.html" class="btn btn--match">Continuar</a></button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
+
+
