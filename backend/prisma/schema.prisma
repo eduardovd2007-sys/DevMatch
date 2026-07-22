@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  email             String   @unique
+  password_hash     String
+  cuatrimestre      Int
+  horas_semanales   Int?
+  horario_preferido String?
+  fecha_creacion    DateTime @default(now())
+  // --- NUEVAS COLUMNAS PARA EL MATCHMAKING ---
+  perfil_logistico  String? // Guardará "work_study", "commuter", etc.
+  horario           Json? // Guardará tu arreglo de celdas verdes
+  stack             Json? // <-- NUEVO: Guardará el arreglo ["React", "Python"]
+  calificacion_test Int? // <-- NUEVO: Guardará el puntaje final del examen
+  rol_psicometrico  String? // <-- NUEVO: Guardará el rol de Belbin asignado
+  github            String? // <-- NUEVO: Guardará el enlace a GitHub
+  portfolio         String? // <-- NUEVO: Guardará el enlace al Portafolio/Web
+
+  // Relaciones
+  proyectos_creados Proyecto[]            @relation("CreadorProyecto")
+  habilidades       UsuarioHabilidad[]
+  postulaciones     Postulacion[]
+  resultados        ResultadoEvaluacion[]
+  Notificacion      Notificacion[]
+}
+
+model Habilidad {
+  id     Int    @id @default(autoincrement())
+  nombre String @unique
+
+  // Relaciones
+  usuarios  UsuarioHabilidad[]
+  proyectos ProyectoHabilidad[]
+}
+
+model UsuarioHabilidad {
+  id           Int     @id @default(autoincrement())
+  usuario_id   Int
+  habilidad_id Int
+  nivel        String? // Básico, Autónomo, Experto
+
+  usuario   Usuario   @relation(fields: [usuario_id], references: [id])
+  habilidad Habilidad @relation(fields: [habilidad_id], references: [id])
+}
+
+model Proyecto {
+  id                Int      @id @default(autoincrement())
+  titulo            String
+  descripcion       String
+  creador_id        Int
+  estado            String   @default("Abierto")
+  horario_requerido String?
+  horas_requeridas  Int?     @default(15)
+  plazo             String?
+  equipo            Int?     @default(3)
+  fecha_creacion    DateTime @default(now())
+
+  creador       Usuario             @relation("CreadorProyecto", fields: [creador_id], references: [id])
+  habilidades   ProyectoHabilidad[]
+  postulaciones Postulacion[]
+}
+
+model ProyectoHabilidad {
+  id              Int     @id @default(autoincrement())
+  proyecto_id     Int
+  habilidad_id    Int
+  nivel_requerido String? // <-- NUEVO: Básico, Autónomo, Experto
+
+  proyecto  Proyecto  @relation(fields: [proyecto_id], references: [id])
+  habilidad Habilidad @relation(fields: [habilidad_id], references: [id])
+}
+
+model Postulacion {
+  id                Int      @id @default(autoincrement())
+  usuario_id        Int
+  proyecto_id       Int
+  estado            String   @default("Pendiente") // Pendiente, Aceptada, Rechazada
+  link_contacto     String?
+  fecha_postulacion DateTime @default(now())
+
+  usuario  Usuario  @relation(fields: [usuario_id], references: [id])
+  proyecto Proyecto @relation(fields: [proyecto_id], references: [id])
+}
+
+// ==========================================
+// MÓDULO DE TESTS (Competencias y Roles)
+// ==========================================
+
+model Evaluacion {
+  id         Int                   @id @default(autoincrement())
+  titulo     String
+  tipo       String // Técnico, Psicométrico
+  preguntas  Pregunta[]
+  resultados ResultadoEvaluacion[]
+}
+
+model Pregunta {
+  id            Int    @id @default(autoincrement())
+  evaluacion_id Int
+  texto         String
+
+  evaluacion Evaluacion @relation(fields: [evaluacion_id], references: [id])
+  opciones   Opcion[]
+}
+
+model Opcion {
+  id                 Int     @id @default(autoincrement())
+  pregunta_id        Int
+  texto_opcion       String
+  valor_peso         Int
+  categoria_asociada String?
+
+  pregunta Pregunta @relation(fields: [pregunta_id], references: [id])
+}
+
+model ResultadoEvaluacion {
+  id                Int      @id @default(autoincrement())
+  usuario_id        Int
+  evaluacion_id     Int
+  nivel_dominio     String?
+  rol_psicometrico  String?
+  fecha_realizacion DateTime @default(now())
+
+  usuario    Usuario    @relation(fields: [usuario_id], references: [id])
+  evaluacion Evaluacion @relation(fields: [evaluacion_id], references: [id])
+}
+
+model Notificacion {
+  id         Int      @id @default(autoincrement())
+  usuario_id Int
+  tipo       String
+  titulo     String
+  meta       String?
+  leida      Boolean  @default(false)
+  fecha      DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id])
+}
