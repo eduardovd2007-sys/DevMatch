@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Estatus Logístico</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="logistics-body">
+
+    <div class="logistics-container">
+        
+        <a href="registro.html" class="back-link">&larr; volver al registro</a>
+
+        <div class="logistics-header">
+            <div class="logistics-title-group">
+                <span class="mono-step">// paso 2 de 4 - profile.logistics</span>
+                <h1>Estatus <span class="highlight-text">Logístico</span></h1>
+                <p>Define tu contexto para personalizar la matriz de disponibilidad.</p>
+            </div>
+            <div class="status-badge" id="statusBadge">
+                <span class="code-mono">profile.logistics = <span class="undefined-text">undefined</span></span>
+            </div>
+        </div>
+
+        <div id="logisticsContainer">
+            <div class="cards-grid">
+                
+                <label class="logic-card">
+                    <input type="radio" name="logistics_type" value="student">
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-icon">📜–</div>
+                            <span class="badge-outline green">Recomendado</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Solo Estudiante</h3>
+                            <p>Dedicación académica completa. Máxima flexibilidad para colaboraciones y proyectos.</p>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="logic-card">
+                    <input type="radio" id="radioWork" name="logistics_type" value="work_study">
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-icon">💼</div>
+                            <span class="badge-outline blue">Configura jornada</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Trabajo y Estudio</h3>
+                            <p>Combinas responsabilidades laborales con tu formación. Colaboraciones acotadas.</p>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="logic-card">
+                    <!-- Agregamos ID para identificar esta tarjeta -->
+                    <input type="radio" id="radioTransit" name="logistics_type" value="commuter">
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-icon">📜</div>
+                            <span class="badge-outline blue">Transit auto-lock</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Foráneo</h3>
+                            <p>Ej. Traslados Tuxtla - San Cristóbal. El sistema bloqueará tus horas de viaje.</p>
+                        </div>
+                    </div>
+                </label>
+
+            </div>
+
+            <div class="action-footer">
+                <button type="button" id="btnContinue" class="btn-continue" disabled>Continuar &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 1: TRABAJO Y ESTUDIO
+         ========================================== -->
+    <div class="modal-overlay" id="workModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-tag">
+                    <span class="icon-orange">💼</span> <span class="mono-text">// config.work_schedule</span>
+                </div>
+                <button class="close-btn" id="closeWorkModal">&times;</button>
+            </div>
+            <div class="modal-title-area">
+                <h2>Configura tu jornada</h2>
+                <p>El sistema bloqueará automáticamente estas horas en tu matriz de disponibilidad.</p>
+            </div>
+            <div class="time-inputs-container">
+                <div class="input-group">
+                    <label>HORA DE ENTRADA</label>
+                    <div class="input-wrapper">
+                        <input type="time" id="entryTime" class="time-input">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>HORA DE SALIDA</label>
+                    <div class="input-wrapper">
+                        <input type="time" id="exitTime" class="time-input">
+                    </div>
+                    <p class="error-text" id="timeError">La hora de salida no puede ser anterior a la entrada.</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-primary" id="btnSaveWork">Guardar y generar matriz</button>
+                <button class="btn-modal-secondary" id="btnCancelWork">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL 2: LOGÍSTICA DE TRASLADO (FORÁNEO)
+         ========================================== -->
+    <div class="modal-overlay" id="transitModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-tag">
+                    <span class="icon-orange" style="color: #61afef;">📜</span> <span class="mono-text">// config.transit_profile</span>
+                </div>
+                <button class="close-btn" id="closeTransitModal">&times;</button>
+            </div>
+            <div class="modal-title-area">
+                <h2>Logística de Traslado</h2>
+                <p>Generaremos bloques de traslado inamovibles al inicio y fin de cada jornada.</p>
+            </div>
+            <div class="time-inputs-container">
+                <div class="input-group">
+                    <label>MUNICIPIO DE ORIGEN</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="originCity" class="time-input" placeholder="Ej. Tuxtla Gutiérrez">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>HORAS DE VIAJE POR TRAYECTO</label>
+                    <div class="input-wrapper">
+                        <!-- Usamos type="number" para que solo acepte números -->
+                        <input type="number" id="transitHours" class="time-input" placeholder="Ej. 2" min="1">
+                    </div>
+                    <p class="error-text" id="transitError">El tiempo de traslado debe ser mayor a 0.</p>
+                </div>
+            </div>
+            <div class="code-status-block">
+                <span class="code-comment">// transit.lock: [07:00-09:00] + [18:00-20:00]</span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-primary" id="btnSaveTransit">Guardar y generar matriz</button>
+                <button class="btn-modal-secondary" id="btnCancelTransit">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Único de Interacción -->
+    <script>
+        const radioButtons = document.querySelectorAll('input[name="logistics_type"]');
+        const statusBadge = document.getElementById('statusBadge');
+        const btnContinue = document.getElementById('btnContinue');
+
+        // 1. Efectos visuales de selección
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                statusBadge.innerHTML = `<span class="code-mono">profile.logistics = <span style="color: #98c379;">'${this.value}'</span></span>`;
+                statusBadge.style.borderColor = "#334155";
+                btnContinue.disabled = false;
+                btnContinue.classList.add('active');
+            });
+        });
+
+        // 2. Lógica del Botón Continuar Principal
+        btnContinue.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            const isWorkSelected = document.getElementById('radioWork').checked;
+            const isTransitSelected = document.getElementById('radioTransit').checked;
+
+            if (isWorkSelected) {
+                document.getElementById('workModal').classList.add('active');
+            } else if (isTransitSelected) {
+                document.getElementById('transitModal').classList.add('active');
+            } else {
+                // Solo Estudiante
+                sessionStorage.setItem('profile_type', 'student');
+                this.innerText = "Procesando...";
+                this.style.opacity = "0.7";
+                setTimeout(() => window.location.href = 'disponibilidad.html', 500);
+            }
+        });
+
+        // ==========================================
+        // LÓGICA MODAL 1: TRABAJO Y ESTUDIO
+        // ==========================================
+        const entryInput = document.getElementById('entryTime');
+        const exitInput = document.getElementById('exitTime');
+        const workBtn = document.getElementById('btnSaveWork');
+        const workError = document.getElementById('timeError');
+        const workModal = document.getElementById('workModal');
+
+        function validateWork() {
+            const entry = entryInput.value;
+            const exit = exitInput.value;
+            entryInput.parentElement.classList.remove('valid', 'invalid');
+            exitInput.parentElement.classList.remove('valid', 'invalid');
+            workError.classList.remove('show');
+
+            if (entry && exit) {
+                if (exit <= entry) {
+                    exitInput.parentElement.classList.add('invalid');
+                    workError.classList.add('show');
+                    return false;
+                } else {
+                    entryInput.parentElement.classList.add('valid');
+                    exitInput.parentElement.classList.add('valid');
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        entryInput.addEventListener('input', validateWork);
+        exitInput.addEventListener('input', validateWork);
+
+        workBtn.addEventListener('click', function() {
+            if (validateWork()) {
+                sessionStorage.setItem('profile_type', 'work_study');
+                sessionStorage.setItem('work_start', entryInput.value); 
+                sessionStorage.setItem('work_end', exitInput.value);    
+                this.classList.add('success-state');
+                this.innerText = "Generando matriz...";
+                setTimeout(() => window.location.href = 'disponibilidad.html', 1200);
+            } else {
+                if(!entryInput.value) entryInput.parentElement.classList.add('invalid');
+                if(!exitInput.value) exitInput.parentElement.classList.add('invalid');
+            }
+        });
+
+        const closeWork = () => workModal.classList.remove('active');
+        document.getElementById('closeWorkModal').addEventListener('click', closeWork);
+        document.getElementById('btnCancelWork').addEventListener('click', closeWork);
+
+        // ==========================================
+        // LÓGICA MODAL 2: TRASLADO (FORÁNEO)
+        // ==========================================
+        const originInput = document.getElementById('originCity');
+        const transitInput = document.getElementById('transitHours');
+        const transitBtn = document.getElementById('btnSaveTransit');
+        const transitError = document.getElementById('transitError');
+        const transitModal = document.getElementById('transitModal');
+
+        function validateTransit() {
+            const origin = originInput.value.trim();
+            const hours = parseInt(transitInput.value);
+
+            originInput.parentElement.classList.remove('valid', 'invalid');
+            transitInput.parentElement.classList.remove('valid', 'invalid');
+            transitError.classList.remove('show');
+
+            let isValid = true;
+
+            // Valida que el texto no esté vacío
+            if (origin !== "") {
+                originInput.parentElement.classList.add('valid');
+            } else {
+                originInput.parentElement.classList.add('invalid');
+                isValid = false;
+            }
+
+            // Valida que sean números y mayores a 0
+            if (!isNaN(hours) && hours > 0) {
+                transitInput.parentElement.classList.add('valid');
+            } else {
+                transitInput.parentElement.classList.add('invalid');
+                if (transitInput.value !== "") transitError.classList.add('show');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        originInput.addEventListener('input', validateTransit);
+        transitInput.addEventListener('input', validateTransit);
+
+        transitBtn.addEventListener('click', function() {
+            if (validateTransit()) {
+                sessionStorage.setItem('profile_type', 'commuter');
+                sessionStorage.setItem('transit_origin', originInput.value); 
+                sessionStorage.setItem('transit_hours', transitInput.value);    
+
+                this.classList.add('success-state');
+                this.innerText = "🔄 Generando matriz...";
+                setTimeout(() => window.location.href = 'disponibilidad.html', 1200);
+            } else {
+                validateTransit(); // Fuerza mostrar los bordes rojos
+            }
+        });
+
+        const closeTransit = () => transitModal.classList.remove('active');
+        document.getElementById('closeTransitModal').addEventListener('click', closeTransit);
+        document.getElementById('btnCancelTransit').addEventListener('click', closeTransit);
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Matriz de Disponibilidad</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="ide-body">
+
+    <!-- Contenedor estilo Editor de Código -->
+    <div class="ide-window">
+        
+        <!-- Pestañas Superiores -->
+        <div class="ide-tabs-bar">
+            <div class="ide-tabs">
+                <div class="tab active"><span class="dot-red"></span> availability_matrix.tsx <span class="close-tab">×</span></div>
+                <div class="tab"><span class="icon-file">📜„</span> profile.json</div>
+                <div class="tab"><span class="icon-code">⟨⟩</span> schedule.ts</div>
+            </div>
+            <div class="geo-profile">geo_profile: 'student'</div>
+        </div>
+
+        <div class="ide-content">
+            <!-- Números de línea -->
+            <div class="line-numbers">
+                01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10<br>11<br>12<br>13<br>14
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="ide-main-area">
+                
+                <a href="logistica.html" class="back-link">&larr; volver</a>
+
+                <div class="matrix-header">
+                    <span class="mono-step">// paso 3 de 4 — matrix.availability · click+drag para pintar</span>
+                    
+                    <div class="title-and-legend">
+                        <h1>Matriz de <span class="highlight-text">Disponibilidad</span></h1>
+                        
+                        <div class="legend">
+                            <div class="legend-item"><span class="box free"></span> Libre (<span id="freeCount">50</span>)</div>
+                            <div class="legend-item"><span class="box busy"></span> Clase</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-banner">
+                    <span class="pencil-icon">✏️️</span> Haz clic o arrastra para marcar tus clases — las celdas verdes son tus horas libres
+                </div>
+
+                <!-- La cuadrícula se generará con JavaScript -->
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- Headers de los días -->
+                    <div class="grid-header hour-header">H</div>
+                    <div class="grid-header">LUNES</div>
+                    <div class="grid-header">MARTES</div>
+                    <div class="grid-header">MIÉRCOLES</div>
+                    <div class="grid-header">JUEVES</div>
+                    <div class="grid-header">VIERNES</div>
+                </div>
+
+                <!-- Botón de Envío -->
+                <div class="action-footer" style="border: none; padding-top: 20px;">
+                    <button id="btnFinish" class="btn-primary">Guardar Disponibilidad &rarr;</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Interacción Drag & Drop -->
+    <!-- Script de Interacción Drag & Drop y Bloqueo -->
+    <!-- Scripts de interactividad -->
+    <script src="../assets/js/logistica.js?v=2"></script>
+  <script src="../assets/js/config.js"></script>
+</body>
+</html>

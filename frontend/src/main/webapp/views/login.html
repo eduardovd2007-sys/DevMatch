@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Inicia sesión</title>
+    <!-- Rutas relativas apuntando a la nueva carpeta assets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="auth-split-layout">
+        
+        <!-- Panel Izquierdo: Branding y Código Simulado -->
+        <div class="auth-brand-panel">
+            <div class="brand-header-custom">
+                <div class="logo-main">
+                    <span class="bolt-icon-logo">⚡</span>
+                    <span class="logo-text">DevMatch</span>
+                </div>
+                <div class="logo-subtitle">INTELLIGENT MATCHING PLATFORM</div>
+            </div>
+            
+            <h1 class="brand-title">Bienvenido<br>de vuelta al<br><span class="highlight-text">sistema.</span></h1>
+            <p class="brand-desc">Retoma tu proceso, conecta con tu equipo ideal y<br>comienza a construir el futuro de tus proyectos.</p>
+            
+            <div class="code-window auth-code-window-custom">
+                <div class="window-header">
+                    <div class="mac-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+                    <span class="file-name">auth.session.ts</span>
+                    <span></span>
+                </div>
+                <div class="code-content custom-syntax">
+                    <pre><code><span class="s-white">import</span> <span class="s-white">{</span> <span class="s-white">Session</span> <span class="s-white">}</span> <span class="s-white">from</span> <span class="s-green">'@dm/core'</span><span class="s-white">;</span>
+
+<span class="s-blue">async function</span> <span class="s-cyan">authenticateUser</span><span class="s-white">(</span><span class="s-yellow">credentials</span><span class="s-white">) {</span>
+  <span class="s-blue">const</span> <span class="s-yellow">user</span> <span class="s-white">=</span> <span class="s-blue">await</span> <span class="s-cyan">Session</span><span class="s-white">.</span><span class="s-cyan">verify</span><span class="s-white">(credentials);</span>
+  
+  <span class="s-blue">if</span> <span class="s-white">(user.isValid) {</span>
+    <span class="s-orange">// Cargar dashboard y matches activos</span>
+    <span class="s-blue">return</span> <span class="s-white">user.redirectToDashboard();</span>
+  <span class="s-white">}</span>
+<span class="s-white">}</span></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Formulario de Login -->
+        <div class="auth-form-panel">
+            <div class="auth-card">
+                
+                <div class="auth-card-header">
+                    <span class="auth-init"><span class="bolt-icon">⚡</span> auth.login.init()</span>
+                    <!-- El botón X ahora regresa al index principal -->
+                    <button class="close-btn" onclick="window.location.href='../index.html'">&times;</button>
+                </div>
+                
+                <div class="auth-card-body">
+                    <h2>Inicia sesión</h2>
+                    <p>Ingresa tus credenciales para conectar con tu próximo proyecto.</p>
+                    
+                    <form id="formLogin">
+                        <div class="form-group">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="loginCorreo" class="form-control" placeholder="usuario@devmatch.com" autocomplete="off" required>
+                                <span class="status-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>CONTRASEÑA</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                                <span class="status-icon"></span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-block">Iniciar Sesión</button>
+                    </form>
+
+                    <div class="auth-footer" style="margin-top: 50px;">
+                        <span class="footer-text">¿No tienes cuenta?</span>
+                        <a href="registro.html" class="footer-link">Regístrate &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Validaciones visuales (Palomita verde al escribir)
+        function validateInput(inputId) {
+            const input = document.getElementById(inputId);
+            input.addEventListener('input', function() {
+                const wrapper = this.parentElement;
+                const icon = wrapper.querySelector('.status-icon');
+                
+                if (this.value.trim().length > 0) {
+                    wrapper.classList.add('valid');
+                    icon.innerText = '✅';
+                } else {
+                    wrapper.classList.remove('valid');
+                    icon.innerText = '';
+                }
+            });
+        }
+
+        validateInput('loginCorreo');
+        validateInput('loginPassword');
+
+        // 2. Lógica de inicio de sesión con API
+        document.getElementById('formLogin').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+
+            // Efecto visual de carga
+            btn.innerText = 'Autenticando...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+
+            const correoIngresado = document.getElementById('loginCorreo').value;
+            const passwordIngresado = document.getElementById('loginPassword').value;
+
+            try {
+                const baseUrl = (window.DEVMATCH_CONFIG && window.DEVMATCH_CONFIG.API_URL) ? 
+                                window.DEVMATCH_CONFIG.API_URL : `http://${window.location.hostname}:3000/api`;
+                
+                const response = await fetch(`${baseUrl}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: correoIngresado, password: passwordIngresado })
+                });
+                const datos = await response.json();
+
+                if (response.status === 200) {
+                    // Guardar id, name en localStorage
+                    localStorage.setItem('currentUserId', datos.usuario.id);
+                    localStorage.setItem('userName', datos.usuario.nombre);
+
+                    // Lógica de redirección inteligente (Onboarding incompleto)
+                    const u = datos.usuario;
+                    if (!u.perfil_logistico) {
+                        window.location.href = 'logistica.html';
+                    } else if (!u.stack || u.stack.length === 0 || u.calificacion_test === null) {
+                        window.location.href = 'stack.html';
+                    } else if (!u.rol_psicometrico) {
+                        window.location.href = 'psicometrico.html';
+                    } else {
+                        // Perfil completo -> HOME
+                        window.location.href = 'home.html';
+                    }
+                } else {
+                    // Error: Credenciales incorrectas
+                    alert(datos.error || 'Correo o contraseña incorrectos.');
+                    btn.innerText = originalText;
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                    
+                    const passInput = document.getElementById('loginPassword');
+                    passInput.value = ''; 
+                    passInput.focus();
+                    
+                    const passWrapper = passInput.parentElement;
+                    passWrapper.classList.remove('valid');
+                    passWrapper.querySelector('.status-icon').innerText = '';
+                }
+            } catch (error) {
+                alert('Error al conectar con el servidor.');
+                btn.innerText = originalText;
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            }
+        });
+    </script>
+    <script src="../assets/js/config.js"></script>
+</body>
+</html>

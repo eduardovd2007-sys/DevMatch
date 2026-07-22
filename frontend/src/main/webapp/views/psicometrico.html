@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Test Psicométrico</title>
+    <script src="../assets/js/config.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="ide-dark-body">
+
+    <div class="psycho-container">
+        
+        <a href="test.html" class="back-link">&larr; volver al examen técnico</a>
+
+        <div class="psycho-progress-header">
+            <span class="mono-step">// paso 5 de 5 - profile.belbin_assessment</span>
+            <div class="progress-bar-wrapper">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar" style="width: 85%;"></div>
+                </div>
+                <span class="progress-percentage" id="progressText">85%</span>
+            </div>
+            <span class="mono-step" style="color: #64748b;">// Evaluando compatibilidad conductual ....</span>
+        </div>
+
+        <div class="psycho-card">
+            <div class="card-tag">
+                <span style="color: #ff5f56;">🤝</span> Modelo Belbin · Escenario <span id="scenarioCounter">1/3</span> · <span id="scenarioTopic">Dinámica de Equipo</span>
+            </div>
+            
+            <h2 class="psycho-question" id="questionTitle">¿Cómo reaccionas cuando un sprint está a punto de fracasar?</h2>
+            <p class="psycho-subtitle">Elige la opción que describa de forma más honesta tu reacción natural — no hay respuestas correctas o incorrectas.</p>
+
+            <div class="psycho-options-list" id="optionsContainer">
+                <!-- Las opciones se inyectan con JavaScript -->
+            </div>
+        </div>
+
+        <button class="btn-psycho" id="btnNext" disabled>Siguiente Escenario &rarr;</button>
+
+    </div>
+
+    <script>
+        // Banco de preguntas psicométricas (Roles de Equipo Belbin)
+        let psychoQuestions = [];
+
+        let currentIndex = 0;
+        let selectedAnswers = [];
+
+        // Referencias al DOM
+        const scenarioCounter = document.getElementById('scenarioCounter');
+        const scenarioTopic = document.getElementById('scenarioTopic');
+        const questionTitle = document.getElementById('questionTitle');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const btnNext = document.getElementById('btnNext');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        function renderPsychoQuestion() {
+            const currentQ = psychoQuestions[currentIndex];
+            
+            // Actualizar textos
+            scenarioCounter.innerText = `${currentIndex + 1}/${psychoQuestions.length}`;
+            scenarioTopic.innerText = currentQ.topic;
+            questionTitle.innerText = currentQ.question;
+            
+            // Actualizar progreso dinámico
+            const baseProgress = 80;
+            const progress = Math.floor(baseProgress + ((currentIndex + 1) / psychoQuestions.length) * (100 - baseProgress));
+            progressBar.style.width = `${progress}%`;
+            progressText.innerText = `${progress}%`;
+
+            // Configurar Botón
+            btnNext.disabled = true;
+            btnNext.classList.remove('active');
+            btnNext.style.backgroundColor = ''; // Reset inline style so CSS works
+
+            if (currentIndex === psychoQuestions.length - 1) {
+                btnNext.innerText = "Finalizar Onboarding y Analizar Perfil";
+            } else {
+                btnNext.innerText = "Siguiente Escenario \u2192";
+            }
+
+            // Generar opciones
+            optionsContainer.innerHTML = '';
+            currentQ.options.forEach(opt => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'psycho-opt';
+                optDiv.innerHTML = `
+                    <div class="psycho-letter">${opt.id}</div>
+                    <div class="psycho-opt-text">${opt.text}</div>
+                `;
+                
+                optDiv.addEventListener('click', () => {
+                    // Remover selección previa
+                    document.querySelectorAll('.psycho-opt').forEach(el => el.classList.remove('selected'));
+                    optDiv.classList.add('selected');
+                    btnNext.disabled = false;
+                    btnNext.classList.add('active');
+                    
+                    // Colorear el botón según si es el último paso o no
+                    if (currentIndex === psychoQuestions.length - 1) {
+                        btnNext.style.backgroundColor = "#ff5f56"; // Rojo llamativo
+                    } else {
+                        btnNext.style.backgroundColor = ""; // Deja que CSS active ponga el verde
+                    }
+
+                    // Guardamos la respuesta (el rol asociado) temporalmente
+                    selectedAnswers[currentIndex] = opt.role;
+                });
+                
+                optionsContainer.appendChild(optDiv);
+            });
+        }
+
+        btnNext.addEventListener('click', () => {
+            if (currentIndex < psychoQuestions.length - 1) {
+                currentIndex++;
+                renderPsychoQuestion();
+            } else {
+                btnNext.innerText = "Emparejando perfil...";
+                btnNext.style.opacity = "0.7";
+                
+                // Guardamos los datos en local storage
+                sessionStorage.setItem('belbin_profile', JSON.stringify(selectedAnswers));
+                
+                // 1. Mostrar pantalla de carga inicial
+                const loader = document.getElementById('loadingOverlay');
+                const loaderText = document.getElementById('loadingText');
+                const spinner = document.querySelector('.spinner'); // Seleccionamos el círculo
+                
+                loaderText.innerText = "> Analizando perfil logístico, técnico y conductual. Asignando rol...";
+                loader.classList.add('active');
+                
+                // Enviamos los datos al backend para guardar el rol y hacer match
+                const idUsuario = localStorage.getItem('currentUserId') || 1; // ID real del usuario creado
+                fetch(`${window.DEVMATCH_CONFIG.API_URL}/users/${idUsuario}/psychometric-role`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ roles_selected: selectedAnswers })
+                })
+                .then(res => res.json())
+                .then(data => console.log("Rol guardado exitosamente:", data))
+                .catch(err => console.error("Error guardando rol:", err));
+
+                // 2. Simulamos el tiempo de carga de la evaluación final (2.5 segundos)
+                setTimeout(() => {
+                    // Ocultar el círculo que gira
+                    spinner.style.display = 'none'; 
+                    
+                    // Crear e inyectar la palomita verde
+                    const checkIcon = document.createElement('div');
+                    checkIcon.innerHTML = '✅';
+                    checkIcon.style.fontSize = '50px';
+                    checkIcon.style.marginBottom = '20px';
+                    checkIcon.style.animation = 'fadeIn 0.5s ease-in-out';
+                    
+                    loaderText.parentNode.insertBefore(checkIcon, loaderText);
+                    
+                    // Cambiar el texto a verde y anunciar el éxito
+                    loaderText.innerText = "> ¡Perfil completado! Redirigiendo al Dashboard...";
+                    loaderText.style.color = '#27c93f';
+                    
+                    // 3. Esperar 1.5 segundos para que lean el mensaje y luego redirigir
+                    setTimeout(() => {
+                        // AQUÍ VA EL NOMBRE DEL ARCHIVO DE TUS COMPAÑEROS
+                        window.location.href = 'home.html'; 
+                    }, 1500);
+                    
+                }, 2500);
+            }
+        });
+
+        // Iniciar
+        async function initPsychoTest() {
+            try {
+                const res = await fetch(`${window.DEVMATCH_CONFIG.API_URL}/psychometric/questions`);
+                const data = await res.json();
+                psychoQuestions = data.preguntas;
+                renderPsychoQuestion();
+            } catch (error) {
+                console.error("Error cargando preguntas:", error);
+                document.getElementById('questionTitle').innerText = "Error conectando con el módulo psicométrico. Intente más tarde.";
+    <script src="../assets/js/config.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="ide-dark-body">
+
+    <div class="psycho-container">
+        
+        <a href="test.html" class="back-link">&larr; volver al examen técnico</a>
+
+        <div class="psycho-progress-header">
+            <span class="mono-step">// paso 5 de 5 - profile.belbin_assessment</span>
+            <div class="progress-bar-wrapper">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar" style="width: 85%;"></div>
+                </div>
+                <span class="progress-percentage" id="progressText">85%</span>
+            </div>
+            <span class="mono-step" style="color: #64748b;">// Evaluando compatibilidad conductual ....</span>
+        </div>
+
+        <div class="psycho-card">
+            <div class="card-tag">
+                <span style="color: #ff5f56;">🤝 </span> Modelo Belbin · Escenario <span id="scenarioCounter">1/3</span> · <span id="scenarioTopic">Dinámica de Equipo</span>
+            </div>
+            
+            <h2 class="psycho-question" id="questionTitle">¿Cómo reaccionas cuando un sprint está a punto de fracasar?</h2>
+            <p class="psycho-subtitle">Elige la opción que describa de forma más honesta tu reacción natural — no hay respuestas correctas o incorrectas.</p>
+
+            <div class="psycho-options-list" id="optionsContainer">
+                <!-- Las opciones se inyectan con JavaScript -->
+            </div>
+        </div>
+
+        <button class="btn-psycho" id="btnNext" disabled>Siguiente Escenario &rarr;</button>
+
+    </div>
+
+    <script>
+        // Banco de preguntas psicométricas (Roles de Equipo Belbin)
+        let psychoQuestions = [];
+
+        let currentIndex = 0;
+        let selectedAnswers = [];
+
+        // Referencias al DOM
+        const scenarioCounter = document.getElementById('scenarioCounter');
+        const scenarioTopic = document.getElementById('scenarioTopic');
+        const questionTitle = document.getElementById('questionTitle');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const btnNext = document.getElementById('btnNext');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        function renderPsychoQuestion() {
+            const currentQ = psychoQuestions[currentIndex];
+            
+            // Actualizar textos
+            scenarioCounter.innerText = `${currentIndex + 1}/${psychoQuestions.length}`;
+            scenarioTopic.innerText = currentQ.topic;
+            questionTitle.innerText = currentQ.question;
+            
+            // Actualizar progreso dinámico
+            const baseProgress = 80;
+            const progress = Math.floor(baseProgress + ((currentIndex + 1) / psychoQuestions.length) * (100 - baseProgress));
+            progressBar.style.width = `${progress}%`;
+            progressText.innerText = `${progress}%`;
+
+            // Configurar Botón
+            btnNext.disabled = true;
+            btnNext.classList.remove('active');
+            btnNext.style.backgroundColor = ''; // Reset inline style so CSS works
+
+            if (currentIndex === psychoQuestions.length - 1) {
+                btnNext.innerText = "Finalizar Onboarding y Analizar Perfil";
+            } else {
+                btnNext.innerText = "Siguiente Escenario \u2192";
+            }
+
+            // Generar opciones
+            optionsContainer.innerHTML = '';
+            currentQ.options.forEach(opt => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'psycho-opt';
+                optDiv.innerHTML = `
+                    <div class="psycho-letter">${opt.id}</div>
+                    <div class="psycho-opt-text">${opt.text}</div>
+                `;
+                
+                optDiv.addEventListener('click', () => {
+                    // Remover selección previa
+                    document.querySelectorAll('.psycho-opt').forEach(el => el.classList.remove('selected'));
+                    optDiv.classList.add('selected');
+                    btnNext.disabled = false;
+                    btnNext.classList.add('active');
+                    
+                    // Colorear el botón según si es el último paso o no
+                    if (currentIndex === psychoQuestions.length - 1) {
+                        btnNext.style.backgroundColor = "#ff5f56"; // Rojo llamativo
+                    } else {
+                        btnNext.style.backgroundColor = ""; // Deja que CSS active ponga el verde
+                    }
+
+                    // Guardamos la respuesta (el rol asociado) temporalmente
+                    selectedAnswers[currentIndex] = opt.role;
+                });
+                
+                optionsContainer.appendChild(optDiv);
+            });
+        }
+
+        btnNext.addEventListener('click', () => {
+            if (currentIndex < psychoQuestions.length - 1) {
+                currentIndex++;
+                renderPsychoQuestion();
+            } else {
+                btnNext.innerText = "Emparejando perfil...";
+                btnNext.style.opacity = "0.7";
+                
+                // Guardamos los datos en local storage
+                sessionStorage.setItem('belbin_profile', JSON.stringify(selectedAnswers));
+                
+                // 1. Mostrar pantalla de carga inicial
+                const loader = document.getElementById('loadingOverlay');
+                const loaderText = document.getElementById('loadingText');
+                const spinner = document.querySelector('.spinner'); // Seleccionamos el círculo
+                
+                loaderText.innerText = "> Analizando perfil logístico, técnico y conductual. Asignando rol...";
+                loader.classList.add('active');
+                
+                // Enviamos los datos al backend para guardar el rol y hacer match
+                const idUsuario = localStorage.getItem('currentUserId') || 1; // ID real del usuario creado
+                fetch(`${window.DEVMATCH_CONFIG.API_URL}/users/${idUsuario}/psychometric-role`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ roles_selected: selectedAnswers })
+                })
+                .then(res => res.json())
+                .then(data => console.log("Rol guardado exitosamente:", data))
+                .catch(err => console.error("Error guardando rol:", err));
+
+                // 2. Simulamos el tiempo de carga de la evaluación final (2.5 segundos)
+                setTimeout(() => {
+                    // Ocultar el círculo que gira
+                    spinner.style.display = 'none'; 
+                    
+                    // Crear e inyectar la palomita verde
+                    const checkIcon = document.createElement('div');
+                    checkIcon.innerHTML = '✅';
+                    checkIcon.style.fontSize = '50px';
+                    checkIcon.style.marginBottom = '20px';
+                    checkIcon.style.animation = 'fadeIn 0.5s ease-in-out';
+                    
+                    loaderText.parentNode.insertBefore(checkIcon, loaderText);
+                    
+                    // Cambiar el texto a verde y anunciar el éxito
+                    loaderText.innerText = "> ¡Perfil completado! Redirigiendo al Dashboard...";
+                    loaderText.style.color = '#27c93f';
+                    
+                    // 3. Esperar 1.5 segundos para que lean el mensaje y luego redirigir
+                    setTimeout(() => {
+                        // AQUÍ VA EL NOMBRE DEL ARCHIVO DE TUS COMPAÑEROS
+                        window.location.href = 'home.html'; 
+                    }, 1500);
+                    
+                }, 2500);
+            }
+        });
+
+        // Iniciar
+        async function initPsychoTest() {
+            try {
+                const res = await fetch(`${window.DEVMATCH_CONFIG.API_URL}/psychometric/questions`);
+                const data = await res.json();
+                psychoQuestions = data.preguntas;
+                renderPsychoQuestion();
+            } catch (error) {
+                console.error("Error cargando preguntas:", error);
+                document.getElementById('questionTitle').innerText = "Error conectando con el módulo psicométrico. Intente más tarde.";
+            }
+        }
+        
+        initPsychoTest();
+    </script>
+    <!-- Pantalla de Carga Oculta -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p id="loadingText" class="loader-text">> Procesando...</p>
+        </div>
+    </div>
+</body>
+</html>

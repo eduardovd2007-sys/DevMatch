@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMatch | Configuración de Stack</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="ide-body">
+
+    <div class="ide-window">
+        <!-- Pestañas del IDE -->
+        <div class="ide-tabs">
+            <div class="tab active"><span class="status-dot red"></span> stack_config.ts <span class="close-tab">&times;</span></div>
+            <div class="tab">profile.json</div>
+            <div class="tab">eval_engine.ts</div>
+            <div class="geo-profile" style="color: #98c379;" id="stackCounter">stack.selected: [0]</div>
+        </div>
+
+        <div class="ide-main-area stack-area">
+            
+            <a href="disponibilidad.html" class="back-link">&larr; volver a disponibilidad</a>
+
+            <div class="matrix-header">
+                <span class="mono-step">// paso 4 de 5 - stack_config.inject - eval_engine.compile()</span>
+                <h1>Define tu <span class="highlight-text">Stack Tecnológico</span></h1>
+                <p>Selecciona los lenguajes y herramientas que dominas para adaptar tu evaluación técnica.</p>
+            </div>
+
+            <!-- Buscador -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="techSearch" placeholder="Busca lenguajes, frameworks, bases de datos...">
+            </div>
+
+            <!-- Fila de Seleccionados -->
+            <div class="selected-row">
+                <span class="selected-label">SELECCIONADOS</span>
+                <div class="selected-tags-container" id="selectedTagsContainer">
+                    <!-- Las etiquetas seleccionadas aparecerán aquí -->
+                </div>
+                <button class="clear-btn" id="btnClearAll">Limpiar todo</button>
+            </div>
+
+            <!-- Contenedor de Tecnologías -->
+            <div class="tech-scroll-area">
+                
+                <!-- Categoría: Lenguajes -->
+                <div class="tech-category">
+                    <h3 class="category-title"><span class="mono-icon">&lt;&gt;</span> LENGUAJES</h3>
+                    <div class="tech-grid">
+                        <button class="tech-tag" data-tech="JavaScript">JavaScript</button>
+                        <button class="tech-tag" data-tech="TypeScript">TypeScript</button>
+                        <button class="tech-tag" data-tech="Python">Python</button>
+                        <button class="tech-tag" data-tech="Java">Java</button>
+                        <button class="tech-tag" data-tech="C++">C++</button>
+                        <button class="tech-tag" data-tech="Go">Go</button>
+                        <button class="tech-tag" data-tech="Rust">Rust</button>
+                        <button class="tech-tag" data-tech="Kotlin">Kotlin</button>
+                        <button class="tech-tag" data-tech="Swift">Swift</button>
+                        <button class="tech-tag" data-tech="PHP">PHP</button>
+                        <button class="tech-tag" data-tech="Ruby">Ruby</button>
+                    </div>
+                </div>
+
+                <!-- Categoría: Frontend -->
+                <div class="tech-category">
+                    <h3 class="category-title"><span class="mono-icon">🖼</span> FRONTEND</h3>
+                    <div class="tech-grid">
+                        <button class="tech-tag" data-tech="React">React</button>
+                        <button class="tech-tag" data-tech="Vue">Vue</button>
+                        <button class="tech-tag" data-tech="Angular">Angular</button>
+                        <button class="tech-tag" data-tech="Next.js">Next.js</button>
+                        <button class="tech-tag" data-tech="Svelte">Svelte</button>
+                        <button class="tech-tag" data-tech="Tailwind CSS">Tailwind CSS</button>
+                        <button class="tech-tag" data-tech="HTML/CSS">HTML/CSS</button>
+                    </div>
+                </div>
+
+                <!-- Categoría: Backend -->
+                <div class="tech-category">
+                    <h3 class="category-title"><span class="mono-icon">⚙</span> BACKEND</h3>
+                    <div class="tech-grid">
+                        <button class="tech-tag" data-tech="Node.js">Node.js</button>
+                        <button class="tech-tag" data-tech="Django">Django</button>
+                        <button class="tech-tag" data-tech="Spring Boot">Spring Boot</button>
+                        <button class="tech-tag" data-tech="FastAPI">FastAPI</button>
+                        <button class="tech-tag" data-tech="Laravel">Laravel</button>
+                        <button class="tech-tag" data-tech="Express">Express</button>
+                        <button class="tech-tag" data-tech="NestJS">NestJS</button>
+                        <button class="tech-tag" data-tech="Flask">Flask</button>
+                    </div>
+                </div>
+
+                <!-- Categoría: Bases de Datos -->
+                <div class="tech-category">
+                    <h3 class="category-title"><span class="mono-icon">🗄</span> BASES DE DATOS</h3>
+                    <div class="tech-grid">
+                        <button class="tech-tag" data-tech="PostgreSQL">PostgreSQL</button>
+                        <button class="tech-tag" data-tech="MySQL">MySQL</button>
+                        <button class="tech-tag" data-tech="MongoDB">MongoDB</button>
+                        <button class="tech-tag" data-tech="Redis">Redis</button>
+                        <button class="tech-tag" data-tech="SQLite">SQLite</button>
+                        <button class="tech-tag" data-tech="SQL">SQL</button>
+                        <button class="tech-tag" data-tech="Firebase">Firebase</button>
+                        <button class="tech-tag" data-tech="Supabase">Supabase</button>
+                        <button class="tech-tag" data-tech="Prisma">Prisma</button>
+                    </div>
+                </div>
+
+                <!-- Categoría: DevOps -->
+                <div class="tech-category">
+                    <h3 class="category-title"><span class="mono-icon">☁</span> DEVOPS / CLOUD</h3>
+                    <div class="tech-grid">
+                        <button class="tech-tag" data-tech="Docker">Docker</button>
+                        <button class="tech-tag" data-tech="Kubernetes">Kubernetes</button>
+                        <button class="tech-tag" data-tech="AWS">AWS</button>
+                        <button class="tech-tag" data-tech="GCP">GCP</button>
+                        <button class="tech-tag" data-tech="Azure">Azure</button>
+                        <button class="tech-tag" data-tech="CI/CD">CI/CD</button>
+                        <button class="tech-tag" data-tech="Git">Git</button>
+                        <button class="tech-tag" data-tech="Linux">Linux</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Banner Informativo -->
+            <div class="info-banner">
+                <div class="info-icon">ℹ</div>
+                <div class="info-text">
+                    <h4>Evaluación dinámica</h4>
+                    <p>Tus selecciones se inyectan como variables al motor de evaluación. El código del test técnico aparecerá en el lenguaje que hayas seleccionado.</p>
+                </div>
+            </div>
+
+            <!-- Acciones Finales -->
+            <div class="action-footer stack-footer">
+                <button class="btn-primary" id="btnGenerate">_> Generar Evaluación Dinámica &rarr;</button>
+                <div class="footer-code">// eval_engine.compile(stack) &rarr; questions.fetch() &rarr; test.generate()</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts de interactividad -->
+    <script src="../assets/js/stack.js?v=2"></script>
+  <script src="../assets/js/config.js"></script>
+</body>
+</html>

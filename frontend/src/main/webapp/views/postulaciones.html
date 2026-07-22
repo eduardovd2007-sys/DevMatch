@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="devmatch-api-base" content="">
+  <title>DevMatch · Mis Postulaciones</title>
+  <link rel="stylesheet" href="../assets/css/base.css?v=23">
+  <link rel="stylesheet" href="../assets/css/postulaciones.css?v=24">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">DevMatch</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Inicio</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="postulaciones.html" class="active">Postulaciones</a></li>
+      <li><a href="lider-proyecto.html">Líder Proyecto</a></li>    </ul>
+      <div class="nav-right">
+     <div class="nav-bell-wrap">
+       <button type="button" class="nav-bell" id="nav-bell-btn" aria-label="Notificaciones">
+         <img src="../assets/img/campana.png" alt="" width="20" height="20">
+         <span class="bell-badge" id="bell-badge" hidden>0</span>
+       </button>
+       <div class="notif-dropdown" id="notif-dropdown" aria-hidden="true">
+         <div class="notif-dropdown-head">
+           <span>Notificaciones</span>
+           <span class="notif-badge-pill" id="notif-count-pill">0 nuevas</span>
+         </div>
+         <div class="notif-list" id="notif-list"></div>
+       </div>
+     </div>
+     <div class="nav-avatar-wrap">
+       <button type="button" class="avatar" id="nav-avatar-btn">AL</button>
+       <div class="avatar-dropdown" id="avatar-dropdown" aria-hidden="true">
+         <div class="avatar-dropdown-head">
+           <div class="avatar">AL</div>
+           <strong id="avatar-dropdown-name">Alejandro López</strong>
+         </div>
+         <a href="perfil.html" class="avatar-dropdown-item"><span class="ico">☰</span>Mi Perfil</a>
+         <button type="button" class="avatar-dropdown-item avatar-dropdown-item--danger" id="logout-btn"><span class="ico">✖</span>Cerrar Sesión</button>
+       </div>
+     </div>
+   </div></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-header applications-header">
+      <h1 style="font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; background: linear-gradient(90deg, #ffffff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mis Postulaciones</h1>
+      <div class="header-badges" id="application-badges"></div>
+    </div>
+
+    <section class="applications-workspace" aria-live="polite">
+      <div class="window-meta" id="applications-meta" style="margin-bottom: 32px; color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; font-weight: 600;"></div>
+
+      <div id="applications-content">
+        <!-- Java entregará la colección de postulaciones -->
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api-client.js?v=9"></script>
+  <script src="../assets/js/navbar.js?v=31"></script>
+  <script src="../assets/js/postulaciones.js?v=24"></script>
+</body>
+</html>
+
+

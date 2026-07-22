@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="devmatch-api-base" content="">
+  <title>DevMatch · Mi Perfil</title>
+  <link rel="stylesheet" href="../assets/css/base.css?v=23">
+  <link rel="stylesheet" href="../assets/css/modal.css?v=5">
+  <link rel="stylesheet" href="../assets/css/perfil.css?v=5">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">DevMatch</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Inicio</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="postulaciones.html">Postulaciones</a></li>
+      <li><a href="lider-proyecto.html">Líder Proyecto</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-bell-wrap">
+        <button type="button" class="nav-bell" id="nav-bell-btn" aria-label="Notificaciones">
+          <img src="../assets/img/campana.png" alt="" width="20" height="20">
+          <span class="bell-badge" id="bell-badge" hidden>0</span>
+        </button>
+        <div class="notif-dropdown" id="notif-dropdown" aria-hidden="true">
+          <div class="notif-dropdown-head"><span>Notificaciones</span><span class="notif-badge-pill" id="notif-count-pill">0 nuevas</span></div>
+          <div class="notif-list" id="notif-list"></div>
+        </div>
+      </div>
+      <div class="nav-avatar-wrap">
+        <button type="button" class="avatar" id="nav-avatar-btn">AL</button>
+        <div class="avatar-dropdown" id="avatar-dropdown" aria-hidden="true">
+          <div class="avatar-dropdown-head"><div class="avatar">AL</div><strong id="avatar-dropdown-name">Alejandro López</strong></div>
+          <a href="perfil.html" class="avatar-dropdown-item"><span class="ico">☰</span>Mi Perfil</a>
+          <button type="button" class="avatar-dropdown-item avatar-dropdown-item--danger" id="logout-btn"><span class="ico">✖</span>Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page perfil-page" id="perfil-main">
+    <p class="breadcrumb">DevMatch / perfil / <span class="crumb-current">editar</span></p>
+
+    <div class="page-header perfil-header">
+      <div>
+        <h1>Mi Perfil</h1>
+        <p id="perfil-subtitle">Modifica tus datos y disponibilidad</p>
+      </div>
+    </div>
+
+    <form id="perfil-form">
+      <div class="perfil-grid">
+
+        <!-- Columna izquierda -->
+        <div class="perfil-col">
+
+          <section class="window perfil-card">
+            <div class="perfil-identity">
+              <div class="avatar avatar--lg" id="perfil-avatar">AL</div>
+              <div>
+                <strong id="perfil-name-display">Alejandro López</strong>
+                <span id="perfil-handle-display">@alejandro_l · ID: USR-0042</span>
+              </div>
+            </div>
+
+            <p class="section-label"><span class="dot"></span>Datos personales</p>
+
+            <label class="perfil-field">
+              <span>Nombre completo</span>
+              <input type="text" id="field-name" name="name" readonly maxlength="60">
+            </label>
+
+            <label class="perfil-field">
+              <span>Correo electrónico</span>
+              <input type="email" id="field-email" name="email" readonly maxlength="90">
+            </label>
+
+            <span class="perfil-field-label">Estado actual</span>
+            <div class="status-toggle" id="status-toggle" role="group" aria-label="Estado actual">
+              <button type="button" class="status-option" data-value="student">Estudiante</button>
+              <button type="button" class="status-option" data-value="work_study">Estudiante y Trabajador</button>
+              <button type="button" class="status-option" data-value="commuter">Foráneo</button>
+            </div>
+            <input type="hidden" id="field-status" name="status">
+          </section>
+
+          <section class="window perfil-card">
+            <p class="section-label"><span class="dot"></span>Stack técnico verificado</p>
+            <p class="perfil-hint">Tecnologías — click × para eliminar, + para agregar</p>
+
+            <div class="stack-edit-list" id="stack-edit-list"></div>
+
+            <div class="stack-add-row" style="position: relative; z-index: 50;">
+              <div class="custom-tech-select" id="custom-tech-select">
+                  <div class="custom-select-trigger">
+                      <span>+ agregar tecnología...</span>
+                      <div class="arrow"></div>
+                  </div>
+                  <div class="custom-select-options">
+                      <div class="custom-select-search">
+                          <input type="text" id="tech-search-input" placeholder="Buscar tecnología...">
+                      </div>
+                      <div class="tech-options-list" id="tech-options-list">
+                          <!-- Generado por JS -->
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="window perfil-card">
+            <p class="section-label"><span class="dot"></span>Preferencias de notificación</p>
+
+            <div class="pref-row">
+              <span>Alertas de nuevos postulantes</span>
+              <label class="switch">
+                <input type="checkbox" id="pref-postulantes" checked>
+                <span class="switch-track"></span>
+              </label>
+            </div>
+            <div class="pref-row">
+              <span>Resumen semanal del equipo</span>
+              <label class="switch">
+                <input type="checkbox" id="pref-resumen">
+                <span class="switch-track"></span>
+              </label>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="perfil-col">
+          <section class="window perfil-card">
+            <p class="section-label"><span class="dot"></span>Radar de Habilidades</p>
+            <p class="perfil-hint">Tus competencias tecnológicas</p>
+
+            <div class="radar-container" style="position: relative; width: 100%; height: 250px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+              <canvas id="skillsRadarChart"></canvas>
+            </div>
+
+            <p class="section-label"><span class="dot"></span>Portafolio Profesional</p>
+            <p class="perfil-hint">Enlaces para destacar tu perfil</p>
+            
+            <label class="perfil-field" style="margin-top: 15px;">
+              <span>GitHub (URL)</span>
+              <input type="url" id="field-github" name="github" placeholder="https://github.com/tu-usuario" maxlength="150">
+            </label>
+
+            <label class="perfil-field">
+              <span>Portafolio / LinkedIn (URL)</span>
+              <input type="url" id="field-portfolio" name="portfolio" placeholder="https://tu-sitio.com" maxlength="150">
+            </label>
+          </section>
+        </div>
+
+      </div>
+
+      <div class="perfil-save-bar">
+        <button type="submit" class="btn new-project-button" id="perfil-save-btn"> Guardar Cambios</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Modal de éxito (reusa .leader-modal / .result-card de modal.css) -->
+  <div class="leader-modal" id="perfil-success-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="result-card result-card--success">
+      <div class="window-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+      <div class="result-body">
+        <div class="result-icon">✓</div>
+        <h2>¡Perfil Actualizado Correctamente!</h2>
+        <p class="result-subtitle" id="perfil-success-name">Alejandro López</p>
+        <button class="btn card-secondary" id="perfil-success-close" type="button">Hecho</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="leader-modal" id="perfil-error-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="result-card result-card--error">
+      <div class="window-bar"><span class="dot-red"></span><span class="dot-yellow"></span></div>
+      <div class="result-body">
+        <div class="result-icon result-icon--error">✕</div>
+        <h2>No se pudo actualizar el perfil</h2>
+        <button class="btn btn--outline" id="perfil-error-close" type="button">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api-client.js?v=7"></script>
+  <script src="../assets/js/navbar.js?v=31"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../assets/js/perfil.js?v=7"></script>
+</body>
+</html>

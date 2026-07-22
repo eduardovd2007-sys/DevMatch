@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevMatch · Inicio</title>
+  <link rel="stylesheet" href="../assets/css/base.css?v=24">
+  <link rel="stylesheet" href="../assets/css/modal.css?v=5">
+  <link rel="stylesheet" href="../assets/css/home.css?v=1">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">DevMatch</div>
+    <ul class="nav-links">
+      <li><a href="home.html" class="active">Inicio</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="postulaciones.html">Postulaciones</a></li>
+      <li><a href="lider-proyecto.html">Líder Proyecto</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-bell-wrap">
+        <button type="button" class="nav-bell" id="nav-bell-btn" aria-label="Notificaciones">
+          <img src="../assets/img/campana.png" alt="" width="20" height="20">
+          <span class="bell-badge" id="bell-badge" hidden>0</span>
+        </button>
+        <div class="notif-dropdown" id="notif-dropdown" aria-hidden="true">
+          <div class="notif-dropdown-head"><span>Notificaciones</span><span class="notif-badge-pill" id="notif-count-pill">0 nuevas</span></div>
+          <div class="notif-list" id="notif-list"></div>
+        </div>
+      </div>
+      <div class="nav-avatar-wrap">
+        <button type="button" class="avatar" id="nav-avatar-btn">DV</button>
+        <div class="avatar-dropdown" id="avatar-dropdown" aria-hidden="true">
+          <div class="avatar-dropdown-head"><div class="avatar" id="nav-avatar-icon">DV</div><strong id="avatar-dropdown-name">Cargando...</strong></div>
+          <a href="perfil.html" class="avatar-dropdown-item"><span class="ico">☰</span>Mi Perfil</a>
+          <button type="button" class="avatar-dropdown-item avatar-dropdown-item--danger" id="logout-btn"><span class="ico">✖</span>Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page home-page">
+    <!-- Carrusel Interactivo de Cursos -->
+    <section class="home-carousel-section">
+      <h2 class="home-section-title"><span>Cursos</span> Recomendados</h2>
+      <div class="carousel-container">
+        <button class="carousel-btn prev-btn" id="carousel-prev" aria-label="Anterior">‹</button>
+        <div class="carousel-track" id="carousel-track">
+          <!-- Banners dynamically inserted by JS -->
+        </div>
+        <button class="carousel-btn next-btn" id="carousel-next" aria-label="Siguiente">›</button>
+        
+        <div class="carousel-indicators" id="carousel-indicators">
+          <!-- Indicators dynamically inserted -->
+        </div>
+      </div>
+    </section>
+
+    <div class="home-header">
+      <h1 id="welcome-message">Bienvenido a DevMatch</h1>
+      <p class="section-subtitle">Continúa tu desarrollo profesional o explora la industria</p>
+    </div>
+
+    <!-- Grid de Noticias de Tecnología -->
+    <section class="home-news-section">
+      <h2 class="home-section-title"><span>Noticias</span> Tech Recientes</h2>
+      <div class="news-grid" id="news-grid">
+        <!-- Tarjetas dinámicas -->
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api-client.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/home.js"></script>
+</body>
+</html>

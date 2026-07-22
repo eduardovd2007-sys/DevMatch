@@ -1,0 +1,184 @@
+/* ==========================================================
+   postulaciones.css - Masterpiece Redesign
+   ========================================================== */
+
+.app-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.app-card {
+  display: grid;
+  grid-template-columns: 80px 2fr 1.5fr 1fr 1fr;
+  align-items: center;
+  gap: 24px;
+  background: var(--bg-panel);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.app-card:hover {
+  background: var(--bg-panel-2);
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.app-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.app-card.status-aceptado {
+  border-left: 4px solid var(--accent-green);
+}
+.app-card.status-aceptado::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--accent-green);
+  box-shadow: 0 0 20px var(--accent-green);
+}
+
+.app-card.status-evaluating {
+  border-left: 4px solid var(--accent-yellow);
+}
+
+.app-card.status-rechazado {
+  border-left: 4px solid var(--accent-red);
+}
+
+.app-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  opacity: 0.5;
+  letter-spacing: -0.05em;
+}
+
+.app-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.app-company {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.app-match {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-match span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.app-match strong {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.app-match strong.green { color: var(--accent-green); }
+.app-match strong.yellow { color: var(--accent-yellow); }
+
+.app-timeline {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.app-timeline strong {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  margin-top: 2px;
+}
+
+.app-action {
+  text-align: right;
+}
+
+.empty-state {
+  min-height: 400px;
+  background: rgba(0,0,0,0.3);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-state::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02), transparent 60%);
+  pointer-events: none;
+}
+
+.empty-state strong {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 400px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.empty-state-link {
+  background: var(--accent-green);
+  color: var(--bg-dark);
+  font-weight: 700;
+  padding: 12px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(46, 230, 166, 0.2);
+}
+
+.empty-state-link:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(46, 230, 166, 0.4);
+}
+
+@media (max-width: 900px) {
+  .app-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+  .app-card.status-aceptado { border-left: none; border-top: 4px solid var(--accent-green); }
+  .app-card.status-aceptado::before { left: 0; top: 0; right: 0; height: 4px; width: 100%; }
+  .app-action { text-align: center; }
+}
